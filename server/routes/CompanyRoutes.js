@@ -8,6 +8,7 @@ companyRoutes.use(bodyParser.urlencoded({
 
 const Challenge = require('../models/Challenge');
 const Competition = require('../models/Competition');
+const Thread = require('../models/Thread');
 
 
 companyRoutes.post('/createChallenge', (req, res) => {
@@ -24,29 +25,35 @@ companyRoutes.post('/createChallenge', (req, res) => {
     }
 
     Challenge.create(challenge)
-        .then(challenge => res.status(200).json({
-            status: 'Challenge Creation OK'
-        }))
-        .catch(error => res.status(500).json({
+        .then(challengeCurrent => {
+            Thread.create({
+                id: challengeCurrent.id,
+                challengeId: challengeCurrent.id
+            })
+            res.status(200).json({
+                status: 'Challenge Creation OK'
+            })
+        })
+        .catch(error =>  res.status(500).json({
             status: 'Could Not Insert'
         }));
 });
 
 companyRoutes.get('/nonCompChallenges', (req, res) => {
     Challenge.findAll({
-        where: {
-            compId: null,
-        },
-        attributes: ['id', 'title'],
-    })
-    .then(challenges => {
-        res.json(challenges);
-    })
+            where: {
+                compId: null,
+            },
+            attributes: ['id', 'title'],
+        })
+        .then(challenges => {
+            res.json(challenges);
+        })
 });
 
 
 companyRoutes.post('createCompetiton', (req, res) => {
-    
+
     var competition = {
         title: req.body.compTitle,
         body: req.body.compBody,
@@ -54,7 +61,9 @@ companyRoutes.post('createCompetiton', (req, res) => {
     }
 
     Competition.create(competition)
-    .then(competition => res.json({ competitionId: competition.id }));
+        .then(competition => res.json({
+            competitionId: competition.id
+        }));
 });
 
 companyRoutes.get('/getCompetitions', (req, res) => {
