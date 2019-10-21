@@ -8,7 +8,10 @@ const bodyParser = require('body-parser');
 userRoutes.use(bodyParser.urlencoded({
     extended: true
 }));
+
 const User = require('../models/User');
+const Score = require('../models/Score');
+
 userRoutes.use(cors());
 
 process.env.SECRET_KEY = 'key';
@@ -65,3 +68,15 @@ userRoutes.post('/login', (req, res) => {
         }
     })
 });
+
+userRoutes.post('/profile', (req, res) => {
+    var id = req.body.id;
+    Score.findAll({
+        where: {
+            userId: req.body.id,
+        }
+    })
+    .then(scores => res.json(scores));
+});
+
+module.exports = userRoutes;

@@ -8,9 +8,6 @@ module.exports = db.sequelize.define(
             primaryKey: true,
             autoIncrement: true
         },
-        body: {
-            type: Sequelize.STRING,
-        },
         userId: {
             type: Sequelize.INTEGER,
             allowNull: false,
@@ -19,13 +16,11 @@ module.exports = db.sequelize.define(
                 key: 'id',
             }
         },
-        threadId: {
+        score: {
             type: Sequelize.INTEGER,
-            allowNull: false,
-            references: {
-                model: 'thread',
-                key: 'id',
-            }
+        },
+        category: {
+            type: Sequelize.STRING,
         },
     }, {
         freezeTableName: true
