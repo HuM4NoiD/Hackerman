@@ -2,38 +2,71 @@ import React from 'react';
 import './App.css';
 
 function App() {
-  return (
-    <div className="card" style={{width: 'fit-content', margin: 'auto', marginTop: '100px'}}>
-            <h5 className="card-header info-color white-text text-center py-4">
-              <strong>Sign in</strong>
+    return (
+        <div class="card" style= {{height: 'fit-content'}}>
+            <h5 class="card-header info-color white-text text-center py-4">
+                <strong>Sign up</strong>
             </h5>
-            <div className="card-body px-lg-5 pt-0">
-              <form className="text-center" style={{color: '#757575'}} action="#!">
-                <div className="md-form">
-                  <input type="email" id="materialLoginFormEmail" className="form-control"/>
-                  <label for="materialLoginFormEmail">E-mail</label>
-                </div>
-                <div className="md-form">
-                  <input type="password" id="materialLoginFormPassword" className="form-control" />
-                  <label for="materialLoginFormPassword">Password</label>
-                </div>
-          
-                <div className="d-flex justify-content-around">
-                  <div>
-                    <div className="form-check">
-                      <input type="checkbox" className="form-check-input" id="materialLoginFormRemember" />
-                      <label className="form-check-label" for="materialLoginFormRemember">Remember me</label>
+            <div class="card-body px-lg-5 pt-0">
+                <form
+                    class="text-center"
+                    style={{
+                    color: '#757575'
+                }}
+                    action="#!">
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="md-form">
+                                <input
+                                    type="text"
+                                    id="materialRegisterFormFirstName"
+                                    class="form-control"
+                                    required/>
+                                <label for="materialRegisterFormFirstName">First name</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="md-form">
+                                <input type="email" id="materialRegisterFormLastName" class="form-control"/>
+                                <label for="materialRegisterFormLastName">Last name</label>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
-                <button className="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign in</button>
-                <p>Not a member?  
-                  <a href="">  Register</a>
-                </p>
-              </form>
+                    <div class="md-form mt-0">
+                        <input type="email" id="materialRegisterFormEmail" class="form-control"/>
+                        <label for="materialRegisterFormEmail">E-mail</label>
+                    </div>
+                    <div class="md-form">
+                        <input
+                            type="password"
+                            id="materialRegisterFormPassword"
+                            class="form-control"
+                            aria-describedby="materialRegisterFormPasswordHelpBlock"/>
+                        <label for="materialRegisterFormPassword">Password</label>
+                        <small
+                            id="materialRegisterFormPasswordHelpBlock"
+                            class="form-text text-muted mb-4">
+                            At least 8 characters and 1 digit
+                        </small>
+                    </div>
+                    <span>Gender</span>
+                    <select class="custom-select mb-4 mdb-select" style={{marginBottom: '100px'}}>
+                        <option value="" disabled>Choose option</option>
+                        <option value="F" selected>Female</option>
+                        <option value="M">Male</option>
+						<option value="O">Other</option>
+                    </select>
+					<div class="md-form mt-0" >
+                        <input type="date" id="materialRegisterFormEmail" class="form-control" required/>
+                        <label for="materialRegisterFormEmail">Date</label>
+                    </div>
+                    <button
+                        class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+                        type="submit">Sign up</button>
+                </form>
             </div>
-    </div>
-  );
+        </div>
+    );
 }
 
 export default App;

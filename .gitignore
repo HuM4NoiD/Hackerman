@@ -1,2 +1,4 @@
 .vscode
 server/routes/Test.js
+client/node_modules
+server/node_modules
