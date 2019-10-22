@@ -2,6 +2,8 @@ const express = require('express');
 const companyRoutes = express.Router();
 const bodyParser = require('body-parser');
 
+process.env.SECRET_KEY = 'key';
+
 companyRoutes.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -52,7 +54,7 @@ companyRoutes.get('/nonCompChallenges', (req, res) => {
 });
 
 
-companyRoutes.post('createCompetiton', (req, res) => {
+companyRoutes.post('/createCompetiton', (req, res) => {
 
     var competition = {
         title: req.body.compTitle,
@@ -68,6 +70,54 @@ companyRoutes.post('createCompetiton', (req, res) => {
 
 companyRoutes.get('/getCompetitions', (req, res) => {
     Competition.findAll().then(competitions => res.json(competitions));
+});
+
+companyRoutes.post('/companySignup', (req, res) => {
+    const cData = {
+        cname: req.body.cname,
+        domain: req.body.domain,
+        website: req.body.website,
+        password: req.body.password,
+    }
+    
+    bcrypt.hash('test', 10, (error, hashed) => {
+        if (error) {
+            res.json({
+                status: 'User Insert Error'
+            });
+        } else {
+            cData.password = hashed;
+            Company.create(cData)
+                .then(user => {
+                    res.json(user);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    });
+});
+
+companyRoutes.post('/companyLogin', (req, res) => {
+    Company.findOne({
+        where: {
+            id: req.body.id,
+        }
+    })
+    .then(company => {
+        if (company) {
+            if (bcrypt.compareSync(req.body.password, user.password)) {
+                let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
+                    expiresIn: 1440
+                })
+                res.send(token);
+            }
+        } else {
+            res.status(400).json({
+                error: 'No Such Company'
+            });
+        }
+    })
 });
 
 module.exports = companyRoutes;

@@ -1,6 +1,6 @@
 const express = require('express');
-const solutionRoute = express.Router()
-const bodyParser = require('body-parser')
+const solutionRoute = express.Router();
+const bodyParser = require('body-parser');
 solutionRoute.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -21,12 +21,19 @@ solutionRoute.get('/solution/:userId/:challengeId', (req, res) => {
 });
 
 solutionRoute.post('/submitSolution', function (req, res) {
-    Solution.create({
+    var currentSolution = {
         lang: req.body.lang,
         sol: req.body.sol,
         userId: req.body.userId,
         challengeId: req.body.challengeId
-    }).then(solution => res.status(200).json(solution));
+    };
+    Solution.findOrCreate({
+        where: {
+            userId: req.body.userId,
+            challengeId: req.body.challengeId
+        }
+    })
+    // Solution.create().then(solution => res.status(200).json(solution));
 });
 
 module.exports = solutionRoute;

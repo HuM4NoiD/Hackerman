@@ -17,7 +17,11 @@ module.exports = db.sequelize.define(
         },
         website: {
             type: Sequelize.STRING,
+            allowNull: false
         },
+        password: {
+            type: Sequelize.STRING,
+        }
     }, {
         timestamps: false,
         freezeTableName: true,
