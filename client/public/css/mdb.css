@@ -5771,6 +5771,11 @@ table.table a.btn.btn-black {
   color: #fff; }
 
 .card {
+  margin: 0 auto; 
+  margin-top: 20px; 
+  margin-bottom: 20px;
+  height: 700px;
+  width: 500px;
   font-weight: 400;
   border: 0;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
