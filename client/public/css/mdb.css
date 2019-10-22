@@ -5758,7 +5758,7 @@ table.table a.btn.btn-black {
   .btn.aqua-gradient:active:focus .btn.aqua-gradient.active {
     background: linear-gradient(#3aa2ff, #1fffac); }
 
-.btn.blue-gradient {
+.btn-blue-gradient {
   color: #fff;
   transition: .5s ease; }
   .btn.blue-gradient:hover, .btn.blue-gradient:focus, .btn.blue-gradient:active,
@@ -5769,7 +5769,9 @@ table.table a.btn.btn-black {
 .btn-warning:not(:disabled):not(.disabled):active,
 .show > .btn-warning.dropdown-toggle {
   color: #fff; }
-
+body{
+      background-image: linear-gradient(to right, #ffafbd  , #ffc3a0);
+  }
 .card {
   margin: 0 auto; 
   margin-top: 20px; 
