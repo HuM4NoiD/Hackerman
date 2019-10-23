@@ -1,79 +1,131 @@
-import React from 'react'
+import React from 'react';
+import axios from 'axios';
 
 export default class UserSignup extends React.Component {
+
+    constructor() {
+        super()
+        this.state = {
+            email: '',
+            fname: '',
+            lname: '',
+            gender: '',
+            dob: '',
+            password: ''
+        };
+        this.onChange = this
+            .onChange
+            .bind(this);
+        this.onSubmit = this
+            .onSubmit
+            .bind(this);
+    }
+
+    onChange(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        const signupData = {
+            email: this.state.email,
+            password: this.state.password,
+            fname: this.state.fname,
+            lname: this.state.lname,
+            gender: this.state.gender,
+            dob: this.state.dob
+        };
+        axios
+            .post('http://localhost:5000/users/signup', signupData)
+            .then(response => {
+                console.log(response.data);
+                this.props.history.push('/user/signin');
+            })
+            .catch(error => {
+                console.log(error);
+                alert('error')
+            })
+    }
+
     render() {
         return (
-            <div class="card">
-                <h5 class="card-header info-color white-text text-center py-4">
+            <div
+                className="card"
+                style={{
+                height: 'fit-content',
+                marginTop: '20px'
+            }}>
+                <h5 className="card-header info-color white-text text-center py-4">
                     <strong>Sign up</strong>
                 </h5>
-                <div class="card-body px-lg-5 pt-0">
-                    <form class="text-center" style={{color: '#757575'}} action="#!">
-                        <div class="form-row">
-                            <div class="col">
-                                <div class="md-form">
+                <div className="card-body px-lg-5 pt-0">
+                    <form
+                        className="text-center"
+                        onSubmit={this.onSubmit}
+                        style={{
+                        color: '#757575'
+                    }}
+                        action="#!">
+                        <div className="form-row">
+                            <div className="col">
+                                <div className="md-form">
                                     <input
                                         type="text"
                                         id="materialRegisterFormFirstName"
-                                        class="form-control"
+                                        className="form-control"
+                                        name="fname"
+                                        onChange={this.onChange}
                                         required/>
                                     <label for="materialRegisterFormFirstName">First name</label>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="md-form">
-                                    <input type="email" id="materialRegisterFormLastName" class="form-control"/>
+                            <div className="col">
+                                <div className="md-form">
+                                    <input
+                                        type="text"
+                                        id="materialRegisterFormLastName"
+                                        name="lname"
+                                        onChange={this.onChange}
+                                        className="form-control"/>
                                     <label for="materialRegisterFormLastName">Last name</label>
                                 </div>
                             </div>
                         </div>
-                        <div class="md-form mt-0">
-                            <input type="email" id="materialRegisterFormEmail" class="form-control"/>
+                        <div className="md-form mt-0">
+                            <input type="email" id="materialRegisterFormEmail" name="email" className="form-control" onChange={this.onChange}/>
                             <label for="materialRegisterFormEmail">E-mail</label>
                         </div>
-                        <div class="md-form">
+                        <div
+                            className="md-form"
+                            style={{
+                            marginTop: '20px'
+                        }}>
+                            <input type="date" name="dob" id="dob" className="form-control" min="1980-04-01" onChange={this.onChange}/>
+                        </div>
+                        <span>Gender</span>
+                        <select className="mdb-select custom-select mb-4" onChange={this.onChange} name="gender">
+                            <option value="" disabled>Choose option</option>
+                            <option value="F" selected>Female</option>
+                            <option value="M">Male</option>
+                            <option value="O">other</option>
+                        </select>
+
+                        <div className="md-form">
                             <input
                                 type="password"
+                                name="password"
                                 id="materialRegisterFormPassword"
-                                class="form-control"
+                                className="form-control"
+                                onChange={this.onChange}
                                 aria-describedby="materialRegisterFormPasswordHelpBlock"/>
                             <label for="materialRegisterFormPassword">Password</label>
-                            <small
-                                id="materialRegisterFormPasswordHelpBlock"
-                                class="form-text text-muted mb-4">
-                                At least 8 characters and 1 digit
-                            </small>
                         </div>
-                        <div class="form-check">
-                            <input
-                                type="checkbox"
-                                class="form-check-input"
-                                id="materialRegisterFormNewsletter"/>
-                            <label class="form-check-label" for="materialRegisterFormNewsletter">Subscribe to our newsletter</label>
-                        </div>
-                        <button
-                            class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
-                            type="submit">Sign in</button>
-                        <p>or sign up with:</p>
 
-                        <a type="button" class="btn-floating btn-fb btn-sm">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a type="button" class="btn-floating btn-tw btn-sm">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a type="button" class="btn-floating btn-li btn-sm">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a type="button" class="btn-floating btn-git btn-sm">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <hr/>
-                        <p>By clicking
-                            <em>Sign up</em>
-                            you agree to our
-                            <a href="" target="_blank">terms of service</a>
-                        </p>
+                        <button
+                            className="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+                            type="submit">Sign up</button>
                     </form>
                 </div>
             </div>

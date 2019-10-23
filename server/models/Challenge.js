@@ -24,6 +24,7 @@ module.exports = db.sequelize.define(
         },
         difficulty: {
             type: Sequelize.INTEGER,
+            allowNull: false,
         },
         postedBy: {
             type: Sequelize.INTEGER,
@@ -40,6 +41,7 @@ module.exports = db.sequelize.define(
             }
         }
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false,
     }
 );

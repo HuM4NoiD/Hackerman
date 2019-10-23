@@ -1,12 +1,16 @@
 const express = require('express');
 const companyRoutes = express.Router();
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 process.env.SECRET_KEY = 'key';
 
 companyRoutes.use(bodyParser.urlencoded({
     extended: true
 }));
+
+const Company = require('../models/Company');
 
 const Challenge = require('../models/Challenge');
 const Competition = require('../models/Competition');
@@ -18,12 +22,12 @@ companyRoutes.post('/createChallenge', (req, res) => {
 
     var challenge = {
         title: req.body.title,
-        body: req.body.textBody,
-        category: req.body.category,
-        lang: req.body.lang,
+        body: req.body.challengeBody,
+        category: '',//req.body.category,
+        lang:  '',//req.body.lang,
         difficulty: req.body.difficulty,
         postedBy: companyId,
-        compId: req.body.compId
+        compId: 3,//req.body.compId
     }
 
     Challenge.create(challenge)
@@ -54,7 +58,7 @@ companyRoutes.get('/nonCompChallenges', (req, res) => {
 });
 
 
-companyRoutes.post('/createCompetiton', (req, res) => {
+companyRoutes.post('/createCompetition', (req, res) => {
 
     var competition = {
         title: req.body.compTitle,
@@ -72,7 +76,7 @@ companyRoutes.get('/getCompetitions', (req, res) => {
     Competition.findAll().then(competitions => res.json(competitions));
 });
 
-companyRoutes.post('/companySignup', (req, res) => {
+companyRoutes.post('/signup', (req, res) => {
     const cData = {
         cname: req.body.cname,
         domain: req.body.domain,
@@ -83,7 +87,7 @@ companyRoutes.post('/companySignup', (req, res) => {
     bcrypt.hash('test', 10, (error, hashed) => {
         if (error) {
             res.json({
-                status: 'User Insert Error'
+                status: 'Company Insert Error'
             });
         } else {
             cData.password = hashed;
@@ -98,7 +102,7 @@ companyRoutes.post('/companySignup', (req, res) => {
     });
 });
 
-companyRoutes.post('/companyLogin', (req, res) => {
+companyRoutes.post('/signin', (req, res) => {
     Company.findOne({
         where: {
             id: req.body.id,
@@ -106,8 +110,8 @@ companyRoutes.post('/companyLogin', (req, res) => {
     })
     .then(company => {
         if (company) {
-            if (bcrypt.compareSync(req.body.password, user.password)) {
-                let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
+            if (bcrypt.compareSync(req.body.password, company.password)) {
+                let token = jwt.sign(company.dataValues, process.env.SECRET_KEY, {
                     expiresIn: 1440
                 })
                 res.send(token);

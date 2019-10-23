@@ -7,7 +7,7 @@ solutionRoute.use(bodyParser.urlencoded({
 
 const Solution = require('../models/Solution');
 
-solutionRoute.get('/solution/:userId/:challengeId', (req, res) => {
+solutionRoute.get('/get/:userId/:challengeId', (req, res) => {
     var userId = req.params.userId;
     var challengeId = req.params.challengeId;
 
@@ -27,12 +27,24 @@ solutionRoute.post('/submitSolution', function (req, res) {
         userId: req.body.userId,
         challengeId: req.body.challengeId
     };
-    Solution.findOrCreate({
+    Solution.findOne({
         where: {
             userId: req.body.userId,
-            challengeId: req.body.challengeId
+            challengeId: req.body.challengeId,
+        }
+    }).then(foundSolution => {
+        if (foundSolution) {
+            Solution.update(currentSolution, {
+                where: {
+                    userId: req.body.userId,
+                    challengeId: req.body.challengeId,
+                }
+            }).then(updatedSolution => res.json({status: 'Update Sol OK'}));
+        } else {
+            Solution.create(currentSolution).then(createdSolution => res.json({status: 'Create Sol OK'}));
         }
     })
+    .catch(error => res.send(error));
     // Solution.create().then(solution => res.status(200).json(solution));
 });
 

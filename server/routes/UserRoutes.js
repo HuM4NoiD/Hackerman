@@ -21,7 +21,6 @@ userRoutes.post('/signup', (req, res) => {
         email: req.body.email,
         fname: req.body.fname,
         lname: req.body.lname,
-        email: req.body.email,
         gender: req.body.gender,
         dob: req.body.dob,
         password: req.body.password,
@@ -36,8 +35,10 @@ userRoutes.post('/signup', (req, res) => {
             userData.password = hashed;
             User.create(userData)
                 .then(user => {
+                    console.log(user)
                     res.json({
-                        status: 'ok'
+                        status: 'ok',
+                        user: user
                     });
                 })
                 .catch(err => {
@@ -49,7 +50,8 @@ userRoutes.post('/signup', (req, res) => {
     });
 });
 
-userRoutes.post('/login', (req, res) => {
+userRoutes.post('/signin', (req, res) => {
+    console.log(req.body)
     User.findOne({
             where: {
                 email: req.body.email
@@ -71,7 +73,7 @@ userRoutes.post('/login', (req, res) => {
         })
 });
 
-userRoutes.post('/profile', (req, res) => {
+userRoutes.get('/profile', (req, res) => {
     var id = req.body.id;
     Score.findAll({
             where: {

@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('../database/database');
 
 module.exports = db.sequelize.define(
-    'competition', {
+    'solution', {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -33,6 +33,7 @@ module.exports = db.sequelize.define(
             }
         },
     }, {
-        freezeTableName: true
+        freezeTableName: true,
+        timestamps: false,
     }
 );
