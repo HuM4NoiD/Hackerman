@@ -63,7 +63,7 @@ companyRoutes.post('/createCompetition', (req, res) => {
     var competition = {
         title: req.body.compTitle,
         body: req.body.compBody,
-        companyId: req.body.companyId,
+        companyId: req.body.postedBy,
     }
 
     Competition.create(competition)

@@ -31,7 +31,7 @@ export default class CompanySignin extends React.Component {
             console.log(response);
             alert('Login success');
             localStorage.setItem('companyToken', response.data);
-            this.props.history.push('/company/createChallenge')
+            this.props.history.push('/companycreateChallenge')
 		})
 		.catch(error => {
 			console.log(error);

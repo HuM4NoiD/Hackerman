@@ -13,13 +13,12 @@ challengeRoutes.get('/challenge/:id', (req, res) => {
         .then(challenge => res.status(200).json(challenge));
 });
 
-challengeRoutes.get('/practice/:category', (req, res) => {
+challengeRoutes.get('/practice', (req, res) => {
     Challenge.findAll({
             where: {
-                category: req.params.category,
                 compId: null
             },
-            attributes: ['id', 'title']
+            attributes: ['id', 'title', 'difficulty']
         })
         .then(challenges => res.status(200).json(challenges));
 });

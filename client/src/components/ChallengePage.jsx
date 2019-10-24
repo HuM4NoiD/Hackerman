@@ -69,8 +69,8 @@ export default class ChallengePage extends React.Component {
             <div className="deep-blue-gradient">
                 <nav class="navbar navbar-dark bg-dark">
                     <a class="navbar-brand" href="#">HackerMan</a>
-                    <a class="navbar-brand" href="practice.html">Practice</a>
-                    <a class="navbar-brand" href="compete.html">Compete</a>
+                    <a class="navbar-brand" href="/practice">Practice</a>
+                    <a class="navbar-brand" href="/compete">Compete</a>
 
                     <form class="form-inline my-2 my-lg-0">
                         <input

@@ -47,7 +47,10 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
+const database = require('./database/database');
 const port = process.env.PORT || 5000;
+
+database.sequelize.query('create view if not exists company_compete as select competition.id, competition.title, company.cname from competition, company where competition.companyId = company.id');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));

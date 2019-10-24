@@ -31,7 +31,7 @@ export default class UserSignin extends React.Component {
             console.log(response);
             alert('Login success');
             localStorage.setItem('userToken', response.data);
-            this.props.history.push('/challenge');
+            this.props.history.push('/practice');
         })
         .catch(error => {
             console.log(error);

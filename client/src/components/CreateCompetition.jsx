@@ -40,8 +40,8 @@ export default class CreateCompetition extends React.Component {
             <div>
                 <nav class="navbar navbar-dark bg-dark">
                 <a class="navbar-brand" href="#">HackerMan</a>
-                <a class="navbar-brand" href="/company/createChallenge">Create Challenge</a>
-                <a class="navbar-brand" href="/company/createCompetition">Create Competition</a>
+                <a class="navbar-brand" href="/companycreateChallenge">Create Challenge</a>
+                <a class="navbar-brand" href="/companycreateCompetition">Create Competition</a>
                 <a class="navbar-brand" href="#">Welcome User</a>
                 </nav>
                 <div class="container-1">
